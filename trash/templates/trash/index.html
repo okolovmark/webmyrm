@@ -1,0 +1,10 @@
+{% if trash_list %}
+    <ul>
+    {% for trash in trash_list %}
+        <li><a href="{% url 'trash:delete' trash.id %}">{{ trash.path_to_trash }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No trash are available.</p>
+{% endif %}
+
