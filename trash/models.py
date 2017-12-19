@@ -2,11 +2,12 @@
 from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import models
+import os
 
 
 class TrashSetting(models.Model):
-    path_to_log = models.CharField(default=".log_myrm_itislogfilemyrm_", max_length=200)
-    path_to_trash = models.CharField(default=".mytrash", max_length=200)
+    path_to_log = models.CharField(default=os.path.join(os.getcwd(), '.log_myrm_itislogfilemyrm_'), max_length=200)
+    path_to_trash = models.CharField(default=os.path.join(os.getcwd(), '.mytrash'), max_length=200)
     call_auto_cleaning_if_memory_error = models.BooleanField(default=False)
     dry = models.BooleanField(default=False)
     last_cleaning_date = models.DateTimeField(default=timezone.now())

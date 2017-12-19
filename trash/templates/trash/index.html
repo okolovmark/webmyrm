@@ -1,7 +1,8 @@
 {% if trash_list %}
+    <h2>Choose trash</h2>
     <ul>
     {% for trash in trash_list %}
-        <li><a href="{% url 'trash:delete' trash.id %}">{{ trash.path_to_trash }}</a></li>
+        <li><a href="{% url 'trash:detail_trash' trash.id %}">{{ trash.path_to_trash }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

@@ -1,0 +1,6 @@
+<h3>You are selected trash with path: {{ trash.path_to_trash }}</h3>
+choose action:
+<ul>
+    <li><a href="{% url 'trash:file_list' trash.id %}">view file list</a></li>
+    <li><a href="{% url 'trash:delete_files' trash.id %}">delete files</a></li>
+</ul>

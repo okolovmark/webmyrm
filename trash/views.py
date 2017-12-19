@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from .models import TrashSetting
 from django.shortcuts import render
+import os
+from myrm.main_logic import deleting_files
 
 
 class IndexView(generic.ListView):
@@ -18,6 +20,31 @@ class IndexView(generic.ListView):
         return TrashSetting.objects.order_by('-path_to_trash')
 
 
-class DeleteView(generic.DetailView):
+class DetailTrashView(generic.DetailView):
     model = TrashSetting
-    template_name = 'trash/test.html'
+    context_object_name = 'trash'
+    template_name = 'trash/detail_trash.html'
+
+
+def file_list(request, trashsetting_id):
+    dir_list = []
+    file_list = []
+    folder = os.getcwd()
+
+    for dirpath, dirs, files in os.walk(folder):
+        for file in files:
+            path = os.path.join(dirpath, file)
+            file_list.append(path)
+
+        for dir in dirs:
+            path = os.path.join(dirpath, dir)
+            dir_list.append(path)
+        break
+
+    return render(request, 'trash/file_list.html', {
+        'file_list': file_list,
+        'dir_list': dir_list,
+        'folder': folder,
+    })
+
+def delete_files(request, trashsetting_id):
